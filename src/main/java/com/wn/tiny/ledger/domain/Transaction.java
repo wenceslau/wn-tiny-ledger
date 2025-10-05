@@ -21,10 +21,10 @@ public class Transaction {
 
     private void validate() {
         if (type == null) {
-            throw new InvalidTransactionException("Transaction type must be specified.");
+            throw new InvalidTransactionException("Transaction type must be specified");
         }
         if (amount == null || amount.signum() <= 0) {
-            throw new InvalidTransactionException("Transaction amount must be positive.");
+            throw new InvalidTransactionException("Transaction amount must be positive");
         }
     }
 

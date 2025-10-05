@@ -25,7 +25,6 @@ public class AccountRepository implements TransactionPersistence {
     public void addTransaction(Transaction transaction, Predicate<BigDecimal> balanceValidation) {
         balance.updateAndGet(currentBalance -> {
 
-            // Validate the transaction against the current balance
             if (!balanceValidation.test(currentBalance)) {
                 throw new InvalidTransactionException("Insufficient funds for withdrawal");
             }
@@ -35,7 +34,6 @@ public class AccountRepository implements TransactionPersistence {
                     : currentBalance.subtract(transaction.getAmount());
         });
 
-        // Only add the transaction to history if the balance update was successful
         transactions.add(transaction);
     }
 
@@ -46,9 +44,14 @@ public class AccountRepository implements TransactionPersistence {
 
     @Override
     public Optional<Transaction> findTransaction(String id) {
-        return transactions.stream()
-                .filter(transaction -> transaction.getId().equals(UUID.fromString(id)))
-                .findFirst();
+        try {
+            UUID uuid = UUID.fromString(id);
+            return transactions.stream()
+                    .filter(transaction -> transaction.getId().equals(uuid))
+                    .findFirst();
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

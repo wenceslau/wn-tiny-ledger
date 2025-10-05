@@ -11,6 +11,5 @@ public record TransactionRequest(
         @Positive(message = "Amount must be positive")
         BigDecimal amount,
         @NotNull(message = "Transaction type cannot be null")
-        TransactionType type
-) {
+        TransactionType type) {
 }

@@ -1,7 +1,6 @@
 package com.wn.tiny.ledger.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.wn.tiny.ledger.domain.InvalidTransactionException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -48,7 +47,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(InvalidTransactionException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(InvalidTransactionException ex, HttpServletRequest request) {
-        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        var status = HttpStatus.BAD_REQUEST;
         var errorResponse = new ErrorResponse(
                 Instant.now(),
                 status.value(),
@@ -77,7 +76,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleInvalidFormatException(HttpMessageNotReadableException ex, HttpServletRequest request) {
-        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        var status = HttpStatus.BAD_REQUEST;
         var errorResponse = new ErrorResponse(
                 Instant.now(),
                 status.value(),

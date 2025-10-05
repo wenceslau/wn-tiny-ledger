@@ -36,7 +36,7 @@ class TransactionTest {
     void constructor_withNullType_shouldThrowException() {
         assertThatThrownBy(() -> new Transaction(new BigDecimal("50"), null))
                 .isInstanceOf(InvalidTransactionException.class)
-                .hasMessage("Transaction type must be specified.");
+                .hasMessage("Transaction type must be specified");
     }
 
     @ParameterizedTest
@@ -46,6 +46,6 @@ class TransactionTest {
     void constructor_withInvalidAmount_shouldThrowException(BigDecimal invalidAmount) {
         assertThatThrownBy(() -> new Transaction(invalidAmount, TransactionType.DEPOSIT))
                 .isInstanceOf(InvalidTransactionException.class)
-                .hasMessage("Transaction amount must be positive.");
+                .hasMessage("Transaction amount must be positive");
     }
 }
