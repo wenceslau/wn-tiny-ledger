@@ -1,12 +1,14 @@
 package com.wn.tiny.ledger.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.wn.tiny.ledger.domain.InvalidTransactionException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -70,6 +72,20 @@ public class AppExceptionHandler {
                 request.getRequestURI()
         );
         log.error("An unexpected error occurred at path: {}", request.getRequestURI(), ex);
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidFormatException(HttpMessageNotReadableException ex, HttpServletRequest request) {
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        var errorResponse = new ErrorResponse(
+                Instant.now(),
+                status.value(),
+                "Bad Request",
+                "Invalid format field" + ex.getMessage(),
+                request.getRequestURI()
+        );
+        log.error("Invalid format field", ex);
         return new ResponseEntity<>(errorResponse, status);
     }
 
