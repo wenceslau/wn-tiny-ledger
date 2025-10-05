@@ -1,0 +1,58 @@
+server:
+  servlet:
+    context-path: /tiny-ledger/api/v1
+  port: 8181
+  undertow:
+    threads:
+      worker: 32
+      io: 2
+
+spring:
+  datasource:
+    url: jdbc:h2:mem://dev:MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password: 5@
+    driver-class-name: org.h2.Driver
+    hikari:
+      auto-commit: false
+      connection-timeout: 250
+      max-lifetime: 600000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      pool-name: master
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.H2Dialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true
+
+logging:
+  level:
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: method
+  api-docs:
+    path: /v3/api-docs
+  info:
+    title: "Tiny Ledger API"
+    description: "API documentation for the Tiny Ledger application."
+    version: "v1.0.0"
+    contact:
+      name: "Wenceslau Neto"
+      email: "wbaneto@gmail.com"
+
+#
