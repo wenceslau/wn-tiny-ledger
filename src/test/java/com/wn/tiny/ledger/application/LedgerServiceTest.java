@@ -4,7 +4,6 @@ import com.wn.tiny.ledger.domain.InvalidTransactionException;
 import com.wn.tiny.ledger.domain.TransactionType;
 import com.wn.tiny.ledger.infrastructure.repository.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

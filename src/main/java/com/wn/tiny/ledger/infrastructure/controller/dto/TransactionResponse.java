@@ -14,7 +14,7 @@ public record TransactionResponse(
 ) {
     public static TransactionResponse from(Transaction transaction) {
         return new TransactionResponse(
-                transaction.getId().toString(),
+                transaction.getId(),
                 transaction.getAmount(),
                 transaction.getType(),
                 transaction.getTimestamp()

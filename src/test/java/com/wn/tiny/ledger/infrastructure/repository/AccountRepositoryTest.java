@@ -5,7 +5,6 @@ import com.wn.tiny.ledger.domain.Transaction;
 import com.wn.tiny.ledger.domain.TransactionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -59,7 +58,7 @@ class AccountRepositoryTest {
         List<Transaction> history = accountRepository.getTransactionHistory();
         assertThat(history).hasSize(1).containsExactly(deposit);
 
-        Optional<Transaction> found = accountRepository.findTransaction(deposit.getId().toString());
+        Optional<Transaction> found = accountRepository.findTransaction(deposit.getId());
         assertThat(found).isPresent().contains(deposit);
     }
 
