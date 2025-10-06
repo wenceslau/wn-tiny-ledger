@@ -1,0 +1,5 @@
+server:
+  servlet:
+    context-path: /api
+jwt:
+  secret: sLFegVQsWldfJ1UOwABlhVYUT2ss5hx9
