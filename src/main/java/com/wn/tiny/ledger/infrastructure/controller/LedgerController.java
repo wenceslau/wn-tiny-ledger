@@ -3,7 +3,7 @@ package com.wn.tiny.ledger.infrastructure.controller;
 import com.wn.tiny.ledger.application.LedgerService;
 import com.wn.tiny.ledger.infrastructure.controller.dto.BalanceResponse;
 import com.wn.tiny.ledger.infrastructure.controller.dto.TransactionRequest;
-import com.wn.tiny.ledger.domain.Transaction;
+import com.wn.tiny.ledger.infrastructure.controller.dto.TransactionResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,19 +35,22 @@ public class LedgerController {
     @GetMapping("/history")
     @Operation(summary = "Get the transaction history of the ledger")
     @ApiResponse(responseCode = "200", description = "The transaction history of the ledger")
-    public ResponseEntity<List<Transaction>> getTransactionHistory() {
+    public ResponseEntity<List<TransactionResponse>> getTransactionHistory() {
+        var transactions = ledgerService.getTransactionHistory();
+        var transactionResponses = transactions.stream().map(TransactionResponse::from).toList();
+
         return ResponseEntity
-                .ok(ledgerService.getTransactionHistory());
+                .ok(transactionResponses);
     }
 
     @PostMapping("/transactions")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new transaction")
     @ApiResponse(responseCode = "201", description = "The transaction was created successfully")
-    public ResponseEntity<Transaction> createTransaction(@Valid @RequestBody TransactionRequest request) {
+    public ResponseEntity<TransactionResponse> createTransaction(@Valid @RequestBody TransactionRequest request) {
         var transaction = ledgerService.recordTransaction(request.amount(), request.type());
 
         return ResponseEntity
-                .status(HttpStatus.CREATED).body(transaction);
+                .status(HttpStatus.CREATED).body(TransactionResponse.from(transaction));
     }
 }

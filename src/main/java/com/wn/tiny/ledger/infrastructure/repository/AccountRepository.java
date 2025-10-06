@@ -44,14 +44,9 @@ public class AccountRepository implements TransactionPersistence {
 
     @Override
     public Optional<Transaction> findTransaction(String id) {
-        try {
-            UUID uuid = UUID.fromString(id);
-            return transactions.stream()
-                    .filter(transaction -> transaction.getId().equals(uuid))
-                    .findFirst();
-        } catch (IllegalArgumentException e) {
-            return Optional.empty();
-        }
+        return transactions.stream()
+                .filter(transaction -> transaction.getId().equals(id))
+                .findFirst();
     }
 
     @Override

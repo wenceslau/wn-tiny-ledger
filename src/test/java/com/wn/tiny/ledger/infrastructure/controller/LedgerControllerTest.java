@@ -1,7 +1,6 @@
 package com.wn.tiny.ledger.infrastructure.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wn.tiny.ledger.config.TestSecurityConfig;
 import com.wn.tiny.ledger.domain.TransactionType;
 import com.wn.tiny.ledger.infrastructure.controller.dto.TransactionRequest;
 import org.junit.jupiter.api.DisplayName;
@@ -9,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -24,9 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestSecurityConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @DisplayName("LedgerController Integration Tests")
+@ActiveProfiles("local")
 class LedgerControllerTest {
 
     @Autowired

@@ -2,6 +2,7 @@ package com.wn.tiny.ledger.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -13,10 +14,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@Profile("prod")
 public class SecurityConfig implements WebMvcConfigurer {
 
     public static final RequestMatcher[] PUBLIC_URLS = {
-            AntPathRequestMatcher.antMatcher("/v1/auth/login"),
+            AntPathRequestMatcher.antMatcher("/v1/auth"),
             AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
             AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
             AntPathRequestMatcher.antMatcher("/v3/**"),

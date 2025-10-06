@@ -2,6 +2,7 @@ package com.wn.tiny.ledger.infrastructure.controller;
 
 import com.wn.tiny.ledger.infrastructure.config.JWTService;
 import com.wn.tiny.ledger.infrastructure.controller.dto.LoginRequest;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +23,8 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
-    @PostMapping("/auth")
-    public ResponseEntity<Void> auth(@RequestBody LoginRequest loginRequest) {
+    @PostMapping
+    public ResponseEntity<Void> auth(@Valid @RequestBody LoginRequest loginRequest) {
 
         try {
             // Authentication is not the focus of this example, any user and password will do.

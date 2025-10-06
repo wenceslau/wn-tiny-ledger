@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /api
+jwt:
+  secret: sLFegVQsWldfJ1UOwABlhVYUT2ss5hx9
+spring:
+  autoconfigure: # On local, disable autoconfigured security
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration

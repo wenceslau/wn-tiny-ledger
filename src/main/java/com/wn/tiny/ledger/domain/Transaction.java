@@ -6,13 +6,13 @@ import java.util.UUID;
 
 public class Transaction {
 
-    private final UUID id;
+    private final String id;
     private final BigDecimal amount;
     private final TransactionType type;
     private final LocalDateTime timestamp;
 
     public Transaction(BigDecimal amount, TransactionType type) {
-        this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID().toString().replaceAll("-", "");
         this.amount = amount;
         this.type = type;
         this.timestamp = LocalDateTime.now();
@@ -28,7 +28,7 @@ public class Transaction {
         }
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
